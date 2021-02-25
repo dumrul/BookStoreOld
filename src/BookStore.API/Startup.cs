@@ -41,6 +41,8 @@ namespace BookStore.API
                 });
             });
 
+            services.AddCors();
+
             services.ResolveDependencies();
         }
 
@@ -59,11 +61,13 @@ namespace BookStore.API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
             });
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>
             {
